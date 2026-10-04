@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <div>
@@ -29,7 +30,9 @@
       </div>
     </div>
   </header>
+  <!-- Main Content -->
   <main class="container">
+    <!-- Search Section -->
     <section
       class="controls"
       aria-labelledby="search-heading"
@@ -38,6 +41,7 @@
         Find an internship
       </h2>
       <div class="control-grid">
+        <!-- Search -->
         <div class="field">
           <label for="search">
             Search internships
@@ -49,6 +53,7 @@
             autocomplete="off"
           >
         </div>
+        <!-- Domain Filter -->
         <div class="field">
           <label for="domain">
             Filter by domain
@@ -73,6 +78,7 @@
         </div>
       </div>
     </section>
+    <!-- Internship Results -->
     <section
       aria-labelledby="results-heading"
     >
@@ -85,18 +91,21 @@
           aria-live="polite"
         ></span>
       </div>
+      <!-- Status Message -->
       <div
         id="status"
         class="status"
         role="status"
         aria-live="polite"
       ></div>
+      <!-- Internship Cards -->
       <div
         id="internshipList"
         class="internship-grid"
       ></div>
     </section>
   </main>
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <p>
@@ -104,6 +113,7 @@
       </p>
     </div>
   </footer>
+  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>
