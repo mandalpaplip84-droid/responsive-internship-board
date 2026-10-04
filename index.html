@@ -1,135 +1,109 @@
-const internships = [
-  {
-    id: "INT-101",
-    title: "Frontend Developer Intern",
-    domain: "Full Stack Development",
-    mode: "Remote",
-    location: "India",
-    skills: ["HTML", "CSS", "JavaScript"],
-    openings: 3
-  },
-  {
-    id: "INT-102",
-    title: "API Engineering Intern",
-    domain: "Full Stack Development",
-    mode: "Hybrid",
-    location: "Pune",
-    skills: ["Node.js", "SQL", "Testing"],
-    openings: 2
-  },
-  {
-    id: "INT-103",
-    title: "UI/UX Intern",
-    domain: "UI/UX",
-    mode: "Remote",
-    location: "India",
-    skills: ["Figma", "Research", "Accessibility"],
-    openings: 1
-  },
-  {
-    id: "INT-104",
-    title: "Data Analyst Intern",
-    domain: "Data Analytics",
-    mode: "On-site",
-    location: "Bengaluru",
-    skills: ["Excel", "SQL", "Data Visualization"],
-    openings: 2
-  },
-  {
-    id: "INT-105",
-    title: "Security Operations Intern",
-    domain: "Cyber Security",
-    mode: "Remote",
-    location: "India",
-    skills: ["Linux", "Logs", "Networking"],
-    openings: 1
-  },
-  {
-    id: "INT-106",
-    title: "Python Developer Intern",
-    domain: "Full Stack Development",
-    mode: "Remote",
-    location: "India",
-    skills: ["Python", "Git", "APIs"],
-    openings: 2
-  }
-];
-
-const searchInput = document.getElementById("search");
-const domainSelect = document.getElementById("domain");
-const internshipList = document.getElementById("internshipList");
-const resultCount = document.getElementById("resultCount");
-const status = document.getElementById("status");
-
-function renderInternships() {
-  const searchText = searchInput.value.trim().toLowerCase();
-  const selectedDomain = domainSelect.value;
-
-  const filtered = internships.filter((internship) => {
-    const matchesSearch =
-      searchText === "" ||
-      internship.title.toLowerCase().includes(searchText) ||
-      internship.domain.toLowerCase().includes(searchText) ||
-      internship.location.toLowerCase().includes(searchText) ||
-      internship.skills.some((skill) =>
-        skill.toLowerCase().includes(searchText)
-      );
-
-    const matchesDomain =
-      selectedDomain === "all" ||
-      internship.domain === selectedDomain;
-
-    return matchesSearch && matchesDomain;
-  });
-
-  resultCount.textContent = `${filtered.length} result${
-    filtered.length === 1 ? "" : "s"
-  }`;
-
-  if (filtered.length === 0) {
-    status.textContent = "No internships found. Try another search.";
-    internshipList.innerHTML = "";
-    return;
-  }
-
-  status.textContent = "";
-
-  internshipList.innerHTML = filtered
-    .map(
-      (internship) => `
-        <article class="internship-card">
-
-          <div class="card-top">
-            <span class="domain-badge">
-              ${internship.domain}
-            </span>
-
-            <span class="openings">
-              ${internship.openings} opening${
-                internship.openings === 1 ? "" : "s"
-              }
-            </span>
-          </div>
-
-          <h3>${internship.title}</h3>
-
-          <p class="location">
-            ${internship.mode} · ${internship.location}
-          </p>
-
-          <div class="skills">
-            ${internship.skills
-              .map((skill) => `<span>${skill}</span>`)
-              .join("")}
-          </div>
-
-        </article>
-      `
-    )
-    .join("");
-}
-
-searchInput.addEventListener("input", renderInternships);
-domainSelect.addEventListener("change", renderInternships);
-
-renderInternships();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <meta
+    name="description"
+    content="Responsive internship listing board"
+  >
+  <title>Internship Board</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div>
+        <p class="eyebrow">
+          STUDENT OPPORTUNITIES
+        </p>
+        <h1>
+          Internship Board
+        </h1>
+        <p class="subtitle">
+          Find beginner-friendly internships and build real-world skills.
+        </p>
+      </div>
+    </div>
+  </header>
+  <main class="container">
+    <section
+      class="controls"
+      aria-labelledby="search-heading"
+    >
+      <h2 id="search-heading">
+        Find an internship
+      </h2>
+      <div class="control-grid">
+        <div class="field">
+          <label for="search">
+            Search internships
+          </label>
+          <input
+            id="search"
+            type="search"
+            placeholder="Try JavaScript, UI/UX, SQL..."
+            autocomplete="off"
+          >
+        </div>
+        <div class="field">
+          <label for="domain">
+            Filter by domain
+          </label>
+          <select id="domain">
+            <option value="all">
+              All domains
+            </option>
+            <option value="Full Stack Development">
+              Full Stack Development
+            </option>
+            <option value="UI/UX">
+              UI/UX
+            </option>
+            <option value="Data Analytics">
+              Data Analytics
+            </option>
+            <option value="Cyber Security">
+              Cyber Security
+            </option>
+          </select>
+        </div>
+      </div>
+    </section>
+    <section
+      aria-labelledby="results-heading"
+    >
+      <div class="section-title">
+        <h2 id="results-heading">
+          Available internships
+        </h2>
+        <span
+          id="resultCount"
+          aria-live="polite"
+        ></span>
+      </div>
+      <div
+        id="status"
+        class="status"
+        role="status"
+        aria-live="polite"
+      ></div>
+      <div
+        id="internshipList"
+        class="internship-grid"
+      ></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        Built with semantic HTML, responsive CSS and vanilla JavaScript.
+      </p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
